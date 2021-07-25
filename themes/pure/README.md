@@ -31,7 +31,7 @@ A brand new default theme for [[Hexo](https://hexo.io)].  [Preview](http://cofes
 Execute the following command under your `hexo` folder.
 
 ```
-git clone https://github.com/cofess/hexo-theme-pure.git themes/pure
+git clone https://github.com/wuhaocn/hexo-theme-pure.git themes/pure
 ```
 Then modify the property `theme` of the file `hexo/_config.yml`  to `theme: pure`
 

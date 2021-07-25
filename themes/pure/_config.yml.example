@@ -190,11 +190,11 @@ profile:
   author_title: Web Developer & Designer
   author_description: 个人简介。
   location: Shenzhen, China
-  follow: https://github.com/cofess
+  follow: https://github.com/wuhaocn
   # Social Links
   social:
     links:
-      github: https://github.com/cofess
+      github: https://github.com/wuhaocn
       weibo: http://weibo.com/cofess
       twitter: https://twitter.com/iwebued
       # facebook: /
@@ -213,7 +213,7 @@ profile:
     平面设计: ★★★☆☆
   # My Personal Links
   links:
-    Github: https://github.com/cofess
+    Github: https://github.com/wuhaocn
     Blog: http://blog.cofess.com
     微博: http://weibo.com/cofess
     花瓣: http://huaban.com/cofess
@@ -232,5 +232,5 @@ profile:
       date: 2016
   # My Personal Projects
   projects:
-    cofess/gulp-startpro: https://github.com/cofess/gulp-startpro
-    cofess/hexo-theme-pure: https://github.com/cofess/hexo-theme-pure
+    cofess/gulp-startpro: https://github.com/wuhaocn/gulp-startpro
+    cofess/hexo-theme-pure: https://github.com/wuhaocn/hexo-theme-pure

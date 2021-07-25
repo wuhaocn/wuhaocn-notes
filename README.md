@@ -57,3 +57,10 @@ npm config set registry https://registry.npm.taobao.org
 npm config get registry 
 
 ```
+
+
+### hexo-theme-purer
+````
+https://github.com/fengkx/hexo-theme-purer
+``
+npm install hexo-theme-purer

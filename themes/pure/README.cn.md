@@ -33,7 +33,7 @@ A brand new default theme for [[Hexo](https://hexo.io)].  [Preview](http://cofes
 ## 安装主题
 
 ```
-git clone https://github.com/cofess/hexo-theme-pure.git themes/pure
+git clone https://github.com/wuhaocn/hexo-theme-pure.git themes/pure
 ```
 ## 更新主题
 

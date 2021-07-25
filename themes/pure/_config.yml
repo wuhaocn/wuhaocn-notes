@@ -1,13 +1,13 @@
 # menu
 menu:
   Home: .
-  Archives: .  # 归档
-  Categories: .  # 分类
-  Tags: .  # 标签
-  Repository: .  # github repositories
-  Books: .  # 豆瓣书单
-  Links: .  # 友链
-  About: .  # 关于
+  Archives: archives  # 归档
+  Categories: categories  # 分类
+  Tags: tags  # 标签
+  Repository: repository  # github repositories
+  Books: books  # 豆瓣书单
+  Links: links  # 友链
+  About: about  # 关于
 
 # Enable/Disable menu icons
 menu_icons:
@@ -30,7 +30,7 @@ site:
     enabled: true
     width: 40
     height: 40
-    url: ../images/logo.png
+    url: https://cdn.nlark.com/yuque/0/2021/png/804884/1627202846197-avatar/d0cbf37c-f369-47a9-a1e9-10cfd973a47f.png
   title: Hexo # 页面title
   favicon: /favicon.png
   board: <p>欢迎交流与分享经验!</p> # 站点公告
@@ -38,7 +38,7 @@ site:
 
 # config
 config:
-  skin: theme-green # 主题颜色 theme-black theme-blue theme-green theme-purple
+  skin: # 主题颜色 theme-black theme-blue theme-green theme-purple
   layout: main-center # 布局方式 main-left main-center main-right
   toc: true # 是否开启文章章节目录导航
   menu_highlight: false # 是否开启当前菜单高亮显示
@@ -102,7 +102,7 @@ share:
 
 # Github
 github: 
-  username: cofess  # github username
+  username: wuhaocn  # github username
 
 # Comment
 # Gitment
@@ -185,22 +185,22 @@ fb_app_id:
 # profile
 profile:
   enabled: true # Whether to show profile bar
-  avatar: images/avatar.jpg
+  avatar: images/avatar.png
   gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
-  author: wuhaocn
-  author_title: 后端/通信
+  author: 昵称
+  author_title: Web Developer & Designer
   author_description: 个人简介。
-  location: BJ, China
+  location: Shenzhen, China
   follow: https://github.com/wuhaocn
   # Social Links
   social:
     links:
       github: https://github.com/wuhaocn
-      weibo: https://github.com/wuhaocn
-#      twitter: https://twitter.com/iwebued
+      weibo: http://weibo.com/cofess
+      twitter: https://twitter.com/iwebued
       # facebook: /
       # dribbble: /
-#      behance: https://www.behance.net/cofess
+      behance: https://www.behance.net/cofess
       rss: atom.xml
     link_tooltip: true # enable the social link tooltip, options: true, false
   # My Skills 
@@ -215,10 +215,10 @@ profile:
   # My Personal Links
   links:
     Github: https://github.com/wuhaocn
-    Blog: https://github.com/wuhaocn
-    微博: https://github.com/wuhaocn
-    花瓣: https://github.com/wuhaocn
-    Behance: https://github.com/wuhaocn
+    Blog: http://blog.cofess.com
+    微博: http://weibo.com/cofess
+    花瓣: http://huaban.com/cofess
+    Behance: https://www.behance.net/cofess
   # My Personal Labels
   labels:
     - 前端
@@ -233,5 +233,5 @@ profile:
       date: 2016
   # My Personal Projects
   projects:
-    cofess/gulp-startpro: https://github.com/cofess/gulp-startpro
-    cofess/hexo-theme-pure: https://github.com/cofess/hexo-theme-pure
+    cofess/gulp-startpro: https://github.com/wuhaocn/gulp-startpro
+    cofess/hexo-theme-pure: https://github.com/wuhaocn/hexo-theme-pure

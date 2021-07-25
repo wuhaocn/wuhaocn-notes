@@ -1,5 +1,5 @@
 ---
-title: hexo配置详解
+title: hexo-配置
 ---
 hexo配置详解，包含分类，归档，标题等
 

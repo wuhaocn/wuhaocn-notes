@@ -59,7 +59,7 @@ pagination_dir: page
 include: null
 exclude: null
 ignore: null
-theme: icarus
+theme: pure
 deploy:
   type: git
   repo: git@github.com:wuhaocn/wuhaocn.github.io.git
