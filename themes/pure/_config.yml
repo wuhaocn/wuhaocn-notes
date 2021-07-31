@@ -83,7 +83,7 @@ search:
 
 # Donate
 donate:
-  enable: true
+  enable: false
   # 微信打赏
   wechatpay:
     qrcode: images/donate/wechatpayimg.png
@@ -187,10 +187,10 @@ profile:
   enabled: true # Whether to show profile bar
   avatar: images/avatar.png
   gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
-  author: 昵称
-  author_title: Web Developer & Designer
+  author: wuhaocn
+  author_title: Java & 后端 & 通信
   author_description: 个人简介。
-  location: Shenzhen, China
+  location: BeiJing, China
   follow: https://github.com/wuhaocn
   # Social Links
   social:
@@ -221,11 +221,10 @@ profile:
     Behance: https://www.behance.net/cofess
   # My Personal Labels
   labels:
-    - 前端
-    - 前端开发
-    - 前端重构
-    - Web前端
-    - 网页重构
+    - 后端
+    - 通信
+    - 网络
+    - 缓存
   # My Personal Works
   works:
     name:
