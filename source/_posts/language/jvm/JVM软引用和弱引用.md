@@ -2,6 +2,8 @@
 title: JVM软引用和弱引用
 categories:
 - java
+tag:
+- JVM
 ---
 
 #### 一个场景

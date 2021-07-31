@@ -2,6 +2,8 @@
 title: JVM常见参数设置
 categories:
 - java
+tag:
+- JVM
 ---
 
 ## 1. 查看

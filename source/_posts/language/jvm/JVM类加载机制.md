@@ -2,6 +2,8 @@
 title: JVM类加载机制
 categories:
 - java
+tag:
+- JVM
 ---
 
 # 类加载机制

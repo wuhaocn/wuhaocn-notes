@@ -2,6 +2,9 @@
 title: AspectJ使用介绍
 categories:
 - java
+tag:
+- AOP
+- 字节码
 ---
 
 ## 1.AspectJ 使用介绍

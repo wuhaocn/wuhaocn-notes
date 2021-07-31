@@ -2,6 +2,8 @@
 title: JVM内存模型
 categories:
 - java
+tag:
+- JVM
 ---
 
 

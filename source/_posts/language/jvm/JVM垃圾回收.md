@@ -2,6 +2,8 @@
 title: JVM垃圾回收
 categories:
 - java
+tag:
+- JVM
 ---
 
 # JVM垃圾回收

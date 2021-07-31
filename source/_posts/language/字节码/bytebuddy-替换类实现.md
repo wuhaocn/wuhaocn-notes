@@ -2,6 +2,8 @@
 title: bytebuddy替换类实现
 categories:
 - java
+tag:
+- 字节码
 ---
 
 
