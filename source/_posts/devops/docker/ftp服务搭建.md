@@ -11,7 +11,10 @@ tag:
 
 ### 1.拉取 镜像
 
+```
+
 docker pull fauria/vsftpd
+```
 
 ### 2.启动容器
 
