@@ -26,7 +26,7 @@ docker update prometheus --restart=always
 docker stop grafana
 docker rm grafana
 docker run -d --name=grafana  -p 3000:3000 grafana/grafana
-docker update prometheus --restart=always
+docker update grafana --restart=always
 ```
 
 - 修改配置
