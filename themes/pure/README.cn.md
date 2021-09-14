@@ -233,8 +233,8 @@ douban:
 
 ```
 Name:
-    link: http://example.com
-    avatar: http://example.com/avatar.png
+    link: https://wuhaocn.github.io
+    avatar: https://wuhaocn.github.io/avatar.png
     desc: "这是一个描述"
 ```
 
@@ -242,9 +242,9 @@ Name:
 
 . 将 Name 改为友情链接的名字，例如 Cofess。
 
-. http://example.com 为友情链接的地址。
+. https://wuhaocn.github.io 为友情链接的地址。
 
-. http://example.com/avatar.png 为友情链接的头像。
+. https://wuhaocn.github.io/avatar.png 为友情链接的头像。
 
 . 这是一个描述 为友情链接描述。
 

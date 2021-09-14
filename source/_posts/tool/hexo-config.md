@@ -18,7 +18,7 @@ root: /                   #网站根目录
 permalink: :year/:month/:day/:title/        #文章的 永久链接 格式
 permalink_defaults:                         #永久链接中各部分的默认值
 pretty_urls:                                #改写 permalink 的值来美化 URL
-trailing_index: false # 比如，一个页面的永久链接是 http://example.com/foo/bar/index.html 是否在                         永久链接中保留尾部的 index.html，设置为 false 时去除
+trailing_index: false # 比如，一个页面的永久链接是 https://wuhaocn.github.io/foo/bar/index.html 是否在                         永久链接中保留尾部的 index.html，设置为 false 时去除
 trailing_html: true #是否在永久链接中保留尾部.html, 设置为 false 时去除
 
 # Directory

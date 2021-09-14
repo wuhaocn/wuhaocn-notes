@@ -5,7 +5,7 @@ keywords: null
 author: wuhao
 language: zh-CN
 timezone: ''
-url: http://example.com
+url: https://wuhaocn.github.io
 permalink: ':year/:month/:day/:title/'
 permalink_defaults: null
 pretty_urls:

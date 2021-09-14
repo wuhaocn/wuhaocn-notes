@@ -83,8 +83,8 @@ The format of the link :
 
 ```
 Name:
-    link: http://example.com
-    avatar: http://example.com/avatar.png
+    link: https://wuhaocn.github.io
+    avatar: https://wuhaocn.github.io/avatar.png
     desc: description
 ```
 Add a number of links, we just need to repeat the format according to the above.
