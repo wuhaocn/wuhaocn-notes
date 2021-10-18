@@ -60,7 +60,7 @@ npm config get registry
 
 
 ### hexo-theme-purer
-````
+```
 https://github.com/fengkx/hexo-theme-purer
-``
 npm install hexo-theme-purer
+```
