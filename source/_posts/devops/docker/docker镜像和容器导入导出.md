@@ -26,7 +26,7 @@ total 108M
 ```java
 docker save -o nginx-save.tar ae513a47849c
 ```
-​
+
 
 ### 1.2.镜像的导入
 可以将导出的nginx-save.tar包传到需要的docker主机上面，然后执行导入命令.
@@ -43,7 +43,7 @@ Loaded image ID: sha256:ae513a47849c895a155ddfb868d6ba247f60240ec8495482eca74c4a
 ```java
 docker load -i nginx-save.tar
 ```
-​
+
 
 ## 2.容器的导出和导入
 ### 2.1.容器的导出
