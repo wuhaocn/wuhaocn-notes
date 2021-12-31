@@ -6,15 +6,27 @@ tag:
 - log4j
 ---
 
+CVE-2021-45105  CVE-2021-45046  CVE-2021-44832  CVE-2021-44228
+
 ## 1.概述
-Apache Log4j2 是一个基于 Java 的日志记录工具。该工具重写了 Log4j 框架，并且引入了大量丰富的特性，被大量用于业务系统开发，用来记录日志信息。
-CVE-2021-44228 远程控制漏洞（RCE）影响从 2.0-beta9 到 2.14.1 的  Log4j  版本。受影响的    Log4j 版本包含 Java 命名和目录接口  (JNDI) 功能，可以执行如消息查找替换等操作，攻击者可以通过向易受攻击的系统提交特制的请求，从而完全控制系统，远程执行任意代码，然后进行窃取信息、启动勒索软件或其他恶意活动。
+   Apache Log4j2 是一个基于 Java 的日志记录工具。该工具重写了 Log4j 框架，并且引入了大量丰富的特性，被大量用于业务系统开发，用来记录日志信息。
+   CVE-2021-44228 远程控制漏洞（RCE）影响从 2.0-beta9 到 2.14.1 的  Log4j  版本。受影响的    Log4j 版本包含 Java 命名和目录接口  (JNDI) 功能，
+   可以执行如消息查找替换等操作，攻击者可以通过向易受攻击的系统提交特制的请求，从而完全控制系统，远程执行任意代码，然后进行窃取信息、启动勒索软件或其他恶意活动。
 **Apache Log4j2 安全补丁更新过程**
+- 2021-12-27 发布版本 2.17.1 
+  - 当前安全版本
+- 2021-12-18 发布版本 2.17.0 
+  - 直接漏洞(CVE-2021-44832)
+- 2021-12-13 发布版本 2.16.0 
+  - 直接漏洞(CVE-2021-45105   CVE-2021-44832)
+- 2021-12-10 发布版本 2.15.0 
+  - 直接漏洞(CVE-2021-45105   CVE-2021-45046   CVE-2021-44832)
+- 2021-12-10 发布版本 2.14.1(严重漏洞) 
+  - 直接漏洞(CVE-2021-45105   CVE-2021-45046   CVE-2021-44832   CVE-2021-44228)
+- 2017-09-18 发布版本 2.9.1(严重漏洞) 
+  - 直接漏洞(CVE-2021-45105   CVE-2021-45046   CVE-2021-44832   CVE-2021-44228)(无法通过缓解方案解决)
 
-- 2021 年 12 月 11 日：发布 **2.15.0** 版本，对** **JNDI 查询功能进行限制。但**此版本的修复不完整，导致了第二个 Log4j 漏洞： CVE-2021-45046**。
-- 2021-12-13**：** 发布 **2.16.0** 版本，为了解决 CVE-2021-45046 漏洞， Log4j 2.16.0 直接禁用了 JDNI 功能。
 ### 1.1 官方说明
-
 
 
 - [CVE-2021-44228](https://www.oschina.net/action/GoToLink?url=https%3A%2F%2Fcve.mitre.org%2Fcgi-bin%2Fcvename.cgi%3Fname%3DCVE-2021-44228)**（Log4j2 初始漏洞）**
@@ -297,5 +309,145 @@ for (final Map.Entry<String, PluginType<?>> entry : plugins.entrySet()) {
 修正MessagePatternConverter
 此版本主要为2.15版本修正内容
 ```
-## 6.参考
+## 6.可能带来问题
+### 6.1.日志写入加大性能问题
+```
+● log4j压测业务服务
+  ○ 压测结论升级log4j 2.17.0
+    ○ 同步立即刷盘降低2-3倍，改为同步缓存刷盘有少许提升，改为异步较大提升
+  ○ 详细压测数据
+    ■ log4j-2.8    同   步:  3000/s 
+    ■ log4j-2.17.0 同   步:  1200/s
+    ■ log4j-2.17.0 同步缓存:  1400/s
+    ■ log4j-2.17.0 异步配置:  3300/s
+● 问题描述
+  ○ 升级log4j后续注意性能问题，写入日志量较多的话会有性能瓶颈，开了同步缓存会缓解一些，改为异步，比原来性能要高一些
+● 问题检查
+  ○ 检查一下业务线程是否有业务日志线程锁
+```
+### 6.2.spring升级不动
+* 重写log构建
+
+```
+public class Log4j2SystemExt extends Log4J2LoggingSystem {
+	public static final Map<String, String> SYSTEMS;
+
+	static {
+		Map<String, String> systems = new LinkedHashMap<String, String>();
+		systems.put("ch.qos.logback.core.Appender",
+				"org.springframework.boot.logging.logback.LogbackLoggingSystem");
+		systems.put("org.apache.logging.log4j.core.impl.Log4jContextFactory",
+				"org.letter.spring.simple.Log4j2SystemExt");
+		systems.put("java.util.logging.LogManager",
+				"org.springframework.boot.logging.java.JavaLoggingSystem");
+		SYSTEMS = Collections.unmodifiableMap(systems);
+	}
+
+	private static final String FILE_PROTOCOL = "file";
+
+	public Log4j2SystemExt(ClassLoader classLoader) {
+		super(classLoader);
+	}
+
+	public static void setExtLoggerSystem() {
+		try {
+			Class<?> clz = Class.forName("org.springframework.boot.logging.LoggingSystem");
+			Field field = clz.getDeclaredField("SYSTEMS");
+			field.setAccessible(true);
+			Field modifiers = Field.class.getDeclaredField("modifiers");
+			modifiers.setAccessible(true);
+			modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+			System.out.println("before setExtLoggerSystem: " + field.get(null));
+			field.set(null, Log4j2SystemExt.SYSTEMS);
+			System.out.println("after setExtLoggerSystem: " + field.get(null));
+			modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+		} catch (Exception e) {
+			System.out.println("setExtLoggerSystem:" + e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	protected void loadConfiguration(String location, LogFile logFile) {
+		Assert.notNull(location, "Location must not be null");
+		try {
+			LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+			InputStream is = new ByteArrayInputStream(Log4jXmlConfig.log4jXml.getBytes(StandardCharsets.UTF_8));
+			ConfigurationSource source = new ConfigurationSource(is);
+			ctx.start(ConfigurationFactory.getInstance().getConfiguration(ctx, source));
+		} catch (Exception ex) {
+			throw new IllegalStateException(
+					"Could not initialize Log4J2 logging from " + location, ex);
+		}
+	}
+// 原有
+//	@Override
+//	protected void loadConfiguration(String location, LogFile logFile) {
+//		Assert.notNull(location, "Location must not be null");
+//		try {
+//			LoggerContext ctx =  (LoggerContext) LogManager.getContext(false);
+//			URL url = ResourceUtils.getURL(location);
+//			InputStream stream = url.openStream();
+//			ConfigurationSource configurationSource = null;
+//			if (FILE_PROTOCOL.equals(url.getProtocol())) {
+//				configurationSource = new ConfigurationSource(stream, ResourceUtils.getFile(url));
+//			} else {
+//				configurationSource = new ConfigurationSource(stream, url);
+//			}
+//			ctx.start(ConfigurationFactory.getInstance().getConfiguration(ctx, configurationSource));
+//		}
+//		catch (Exception ex) {
+//			throw new IllegalStateException(
+//					"Could not initialize Log4J2 logging from " + location, ex);
+//		}
+//	}
+}
+
+```
+
+* 配置
+
+```
+Log4j2SystemExt.setExtLoggerSystem();
+
+public class Log4jXmlConfig {
+	public static String log4jXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			"<Configuration status=\"WARN\">\n" +
+			"\t<Properties>\n" +
+			"\t\t<Property name=\"PID\">????</Property>\n" +
+			"\t\t<Property name=\"LOG_EXCEPTION_CONVERSION_WORD\">%xwEx</Property>\n" +
+			"\t\t<Property name=\"LOG_LEVEL_PATTERN\">%5p</Property>\n" +
+			"\t\t<Property name=\"LOG_PATTERN\">%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>\n" +
+			"\t</Properties>\n" +
+			"\t<Appenders>\n" +
+			"\t\t<Console name=\"Console\" target=\"SYSTEM_OUT\" follow=\"true\">\n" +
+			"\t\t\t<PatternLayout pattern=\"${LOG_PATTERN}\" />\n" +
+			"\t\t</Console>\n" +
+			"\t</Appenders>\n" +
+			"\t<Loggers>\n" +
+			"\t\t<Logger name=\"org.apache.catalina.startup.DigesterFactory\" level=\"error\" />\n" +
+			"\t\t<Logger name=\"org.apache.catalina.util.LifecycleBase\" level=\"error\" />\n" +
+			"\t\t<Logger name=\"org.apache.coyote.http11.Http11NioProtocol\" level=\"warn\" />\n" +
+			"\t\t<logger name=\"org.apache.sshd.common.util.SecurityUtils\" level=\"warn\"/>\n" +
+			"\t\t<Logger name=\"org.apache.tomcat.util.net.NioSelectorPool\" level=\"warn\" />\n" +
+			"\t\t<Logger name=\"org.crsh.plugin\" level=\"warn\" />\n" +
+			"\t\t<logger name=\"org.crsh.ssh\" level=\"warn\"/>\n" +
+			"\t\t<Logger name=\"org.eclipse.jetty.util.component.AbstractLifeCycle\" level=\"error\" />\n" +
+			"\t\t<Logger name=\"org.hibernate.validator.internal.util.Version\" level=\"warn\" />\n" +
+			"\t\t<logger name=\"org.springframework.boot.actuate.autoconfigure.CrshAutoConfiguration\" level=\"warn\"/>\n" +
+			"\t\t<logger name=\"org.springframework.boot.actuate.endpoint.jmx\" level=\"warn\"/>\n" +
+			"\t\t<logger name=\"org.thymeleaf\" level=\"warn\"/>\n" +
+			"\t\t<Root level=\"info\">\n" +
+			"\t\t\t<AppenderRef ref=\"Console\" />\n" +
+			"\t\t</Root>\n" +
+			"\t</Loggers>\n" +
+			"</Configuration>";
+}
+
+
+```
+## 7.参考
 [https://www.oschina.net/news/174145/all-response-to-log4shell](https://www.oschina.net/news/174145/all-response-to-log4shell)
+
+
