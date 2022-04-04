@@ -1,4 +1,12 @@
-## java研发体系
+---
+title: 云平台建设要素
+categories:
+- 云平台
+  tag:
+- 云平台
+---
+
+## Java研发体系
 ### frame
 * 模块装载
   * spring-boot 
@@ -10,6 +18,11 @@
 * rpc
   * dubbo(注册/配置/序列化/灰度)
   * grpc
+* 存储
+  * redis
+  * mysql
+  * hbase
+  * kafka
 * 监控
   * 收集
   * 大盘
@@ -24,5 +37,4 @@
 * 监控告警
   * 设备、中间件
   * 服务：qps、耗时、积压、运行状态
-### 应用
   
