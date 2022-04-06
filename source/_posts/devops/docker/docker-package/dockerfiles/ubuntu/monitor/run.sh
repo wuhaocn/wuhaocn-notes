@@ -1,21 +1,25 @@
+## 基础镜像
+docker stop ubuntu-test
+docker rm ubuntu-test
+docker run --name ubuntu-test --privileged=true   -itd ubuntu:18.04
 
 
-docker commit 281bcc444fb0 wuhaocn/monitor:1.0.2
-docker tag wuhaocn/monitor:1.0.2 wuhaocn/monitor:1.0.2
-docker push wuhaocn/monitor:1.0.2
+## prometheus + grafana
 
-docker stop monitor-test
-docker rm monitor-test
-docker run --name monitor-test --privileged=true  -p 13000:3000 -p 18500:8500  -p 19090:9090 -itd wuhaocn/monitor:1.0.2 bash /monitor/start.sh
+https://github.com/prometheus/prometheus/releases/download/v2.34.0/prometheus-2.34.0.linux-amd64.tar.gz
 
+https://dl.grafana.com/enterprise/release/grafana-enterprise-8.4.5.linux-amd64.tar.gz
 
+docker cp prometheus-2.34.0.linux-amd64.tar.gz b0e746f65da8:/home/soft/prometheus-2.34.0.linux-amd64.tar.gz
+docker cp grafana-enterprise-8.4.5.linux-amd64.tar.gz b0e746f65da8:/home/soft/grafana-enterprise-8.4.5.linux-amd64.tar.gz
 
+tar -zxvf prometheus-2.34.0.linux-amd64.tar.gz
+tar -zxvf grafana-enterprise-8.4.5.linux-amd64.tar.gz
 
-wget https://github.com/prometheus/node_exporter/releases/download/v1.3.0/node_exporter-1.3.0.darwin-amd64.tar.gz
+mkdir /home/data/
+mkdir /home/data/prometheus
+mkdir /home/data/grafana
 
-http://127.0.0.1:9100/metrics
-
-
-
-curl -X PUT -d '{"id": "nodeInfo","name": "nodeInfo","address": "10.3.1.226","port": 9100,"tags": ["dev"],"checks": [{"http": "http://10.3.1.226:9100/","interval": "5s"}]}'     http://localhost:18500/v1/agent/service/register
+root@b0e746f65da8:/home/soft# mv prometheus-2.34.0.linux-amd64/ prometheus/
+root@b0e746f65da8:/home/soft# mv grafana-8.4.5 grafana
 
