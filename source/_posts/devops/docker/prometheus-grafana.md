@@ -11,9 +11,57 @@ tag:
 ---
 
 
-## prometheus+grafana
+## 1.镜像使用(一体化)
 
-### 安装
+### 1.1.镜像安装
+docker stop monitor
+docker rm monitor
+docker run --name monitor --privileged=true -p 9090:9090  -p 3000:3000  -d wuhaocn/monitor:1.0
+
+### 1.2.容器配置
+
+docker exec -it monitor bash
+
+配置修改地址
+*  /usr/local/grafana
+```
+root@f23762ac5af0:/usr/local/grafana/conf# ll
+total 136
+drwxr-xr-x 3 root root  4096 Mar 31 12:35 ./
+drwxr-xr-x 1 root root  4096 Apr  7 02:09 ../
+-rw-r--r-- 1 root root 56590 Mar 31 12:35 defaults.ini
+-rw-r--r-- 1 root root  2270 Mar 31 12:35 ldap.toml
+-rw-r--r-- 1 root root  1045 Mar 31 12:35 ldap_multiple.toml
+drwxr-xr-x 7 root root  4096 Mar 31 12:35 provisioning/
+-rw-r--r-- 1 root root 57840 Mar 31 12:35 sample.ini
+```
+* /usr/local/prometheus
+
+```
+root@f23762ac5af0:/usr/local/prometheus# ll
+total 197396
+drwxr-xr-x 4 root root      4096 Apr  7 02:09 ./
+drwxr-xr-x 1 root root      4096 Apr  7 02:16 ../
+-rw-r--r-- 1 root root      6148 Apr  7 01:46 .DS_Store
+-rw-r--r-- 1 root root     11357 Mar 15 15:30 LICENSE
+-rw-r--r-- 1 root root      3773 Mar 15 15:30 NOTICE
+drwxr-xr-x 2 root root      4096 Mar 15 15:30 console_libraries/
+drwxr-xr-x 2 root root      4096 Mar 15 15:30 consoles/
+-rwxr-xr-x 1 root root 105137495 Mar 15 15:21 prometheus*
+-rw-r--r-- 1 root root       934 Apr  6 06:11 prometheus.yml
+-rwxr-xr-x 1 root root  96946761 Mar 15 15:23 promtool*
+      
+```
+
+### 1.3 配置生效
+
+修改后重启配置
+
+docker restart monitor
+
+## 2.镜像使用(拆分)
+
+### 2.1.安装
 
 - 默认配置
 
@@ -55,7 +103,7 @@ scrape_configs:
       - targets: ['localhost:9090']
 ```
 
-### 登录配置
+### 2.2 登录配置
 
 - 登录 http://127.0.0.1:3000
 - 修改密码 默认 admin admin
