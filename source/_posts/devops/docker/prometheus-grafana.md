@@ -14,9 +14,12 @@ tag:
 ## 1.镜像使用(一体化)
 
 ### 1.1.镜像安装
+```
 docker stop monitor
 docker rm monitor
 docker run --name monitor --privileged=true -p 9090:9090  -p 3000:3000  -d wuhaocn/monitor:1.0
+docker update monitor --restart=always
+```
 
 ### 1.2.容器配置
 
@@ -51,6 +54,44 @@ drwxr-xr-x 2 root root      4096 Mar 15 15:30 consoles/
 -rw-r--r-- 1 root root       934 Apr  6 06:11 prometheus.yml
 -rwxr-xr-x 1 root root  96946761 Mar 15 15:23 promtool*
       
+```
+
+```
+root@9852cf5a3339:/# cat /usr/local/prometheus/prometheus.yml 
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: 'mapplication'
+    metrics_path: /
+    static_configs:
+            - targets: ['192.168.3.41:8901']
 ```
 
 ### 1.3 配置生效
