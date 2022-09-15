@@ -4,6 +4,16 @@
 docker stop monitor
 docker rm monitor
 docker run --name monitor --privileged=true -p 9090:9090  -p 3000:3000  -d wuhaocn/monitor:1.0
+docker update monitor --restart=always
+
+docker stop monitor-consul
+docker rm monitor-consul
+docker run --name monitor-consul --privileged=true  -p 8500:8500  -p 9090:9090  -p 3000:3000  -d wuhaocn/monitor:2.0
+docker update monitor-consul --restart=always
+
+curl -X PUT -d '{"id": "test1","name": "test1","address": "192.168.56.12","port": 9100,"tags": ["service"],"checks": [{"http": "http://192.168.56.12:9100/","interval": "5s"}]}' http://192.168.56.12:8502/v1/agent/service/register
+
+
 
 ```
 root@9852cf5a3339:/# cat /usr/local/prometheus/prometheus.yml 
