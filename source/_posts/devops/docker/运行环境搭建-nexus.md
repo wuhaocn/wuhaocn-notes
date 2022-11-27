@@ -1,5 +1,5 @@
 ---
-title: nexus服务搭建
+title: docker-nexus服务搭建
 
 categories:
 - devops
