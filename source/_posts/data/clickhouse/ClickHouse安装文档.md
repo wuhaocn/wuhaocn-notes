@@ -1,3 +1,13 @@
+---
+title: ClickHouse安装文档
+
+categories:
+- ClickHouse
+
+tag:
+- ClickHouse
+---
+
 ## 1.系统要求
 ClickHouse可以在任何具有x86_64，AArch64或PowerPC64LE CPU架构的Linux，FreeBSD或Mac OS X上运行。
 ```java

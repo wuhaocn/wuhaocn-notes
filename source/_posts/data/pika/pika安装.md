@@ -1,3 +1,13 @@
+---
+title: pika安装
+
+categories:
+- redis
+
+tag:
+- pika
+---
+
 ## 快速试用
 如果想快速试用pika，目前提供了Centos5，Centos6和Debian(Ubuntu16) binary版本，可以在[release页面](https://github.com/Qihoo360/pika/releases)看到，具体文件是pikaX.Y.Z_xxx_bin.tar.gz。
 

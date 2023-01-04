@@ -1,3 +1,13 @@
+---
+title: pika配置
+
+categories:
+- redis
+
+tag:
+- pika
+---
+
 # pika 端口
 port : 9221
 

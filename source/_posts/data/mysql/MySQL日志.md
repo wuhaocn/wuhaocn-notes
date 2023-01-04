@@ -1,3 +1,14 @@
+---
+title: MySQL日志分析
+
+categories:
+- MySQL
+
+tag:
+- MySQL
+---
+
+
 ## 慢日志
 
 ## binlog

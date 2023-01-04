@@ -1,3 +1,12 @@
+---
+title: ClickVisual
+
+categories:
+- ClickHouse
+
+tag:
+- ClickHouse
+---
 
 ## 目录
 

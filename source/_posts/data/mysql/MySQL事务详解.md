@@ -1,3 +1,13 @@
+---
+title: MySQL事务详解
+
+categories:
+- MySQL
+
+tag:
+- MySQL
+---
+
 
 ## 1.MySQL事务特性
 
